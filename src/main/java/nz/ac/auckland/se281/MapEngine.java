@@ -15,6 +15,15 @@ public class MapEngine {
     List<String> countries = Utils.readCountries();
     List<String> adjacencies = Utils.readAdjacencies();
     // add code here to create your data structures
+
+    Graph map = new Graph();
+
+    for (String countryInList : countries) {
+      String[] countryInfo = countryInList.split(",");
+      Country country = new Country(countryInfo[0], countryInfo[1], countryInfo[2]);
+
+      map.addNode(country);
+    }
   }
 
   /** this method is invoked when the user run the command info-country. */
