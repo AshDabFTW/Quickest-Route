@@ -1,10 +1,12 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** This class is the main entry point. */
 public class MapEngine {
   Graph map = new Graph();
+  List<Country> countryList = new ArrayList<Country>();
 
   public MapEngine() {
     // add other code here if you want
@@ -22,6 +24,7 @@ public class MapEngine {
       Country country = new Country(countryInfo[0], countryInfo[1], countryInfo[2]);
 
       map.addNode(country);
+      countryList.add(country);
     }
 
     for (String adjCountriesTogether : adjacencies) {
@@ -37,7 +40,17 @@ public class MapEngine {
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
-    // add code here
+    boolean validInput = false;
+
+    while (!validInput) {
+      MessageCli.INSERT_COUNTRY.printMessage();
+      String input = Utils.capitalizeFirstLetterOfEachWord(Utils.scanner.nextLine());
+      Country searchCountry = new Country(input, "null", "null");
+      int indexSearchCountry = countryList.indexOf(searchCountry);
+      Country searchedCountry = countryList.get(indexSearchCountry);
+      MessageCli.COUNTRY_INFO.printMessage(searchedCountry.getName(), searchedCountry.getContinent(), searchedCountry.getTax());
+      validInput = true;
+    }
   }
 
   /** this method is invoked when the user run the command route. */
