@@ -4,6 +4,7 @@ import java.util.List;
 
 /** This class is the main entry point. */
 public class MapEngine {
+  Graph map = new Graph();
 
   public MapEngine() {
     // add other code here if you want
@@ -16,13 +17,21 @@ public class MapEngine {
     List<String> adjacencies = Utils.readAdjacencies();
     // add code here to create your data structures
 
-    Graph map = new Graph();
-
     for (String countryInList : countries) {
       String[] countryInfo = countryInList.split(",");
       Country country = new Country(countryInfo[0], countryInfo[1], countryInfo[2]);
 
       map.addNode(country);
+    }
+
+    for (String adjCountriesTogether : adjacencies) {
+      String[] adjCountriesSplit = adjCountriesTogether.split(",");
+
+      Country mainCountry = new Country(adjCountriesSplit[0], "null", "null");
+      for (int i = 1; i < adjCountriesSplit.length; i++) {
+        Country adjCountry = new Country(adjCountriesSplit[i], "null", "null");
+        map.addEdge(mainCountry, adjCountry);
+      }
     }
   }
 

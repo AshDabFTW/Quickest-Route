@@ -17,7 +17,9 @@ public class Graph {
   }
 
   public void addEdge(Country node1, Country node2) {
-    adjNodes.get(node1).add(node2);
-    adjNodes.get(node2).add(node1);
+    if (!adjNodes.get(node1).contains(node2)) {
+      adjNodes.get(node1).add(node2);
+      adjNodes.get(node2).add(node1);
+    }
   }
 }
