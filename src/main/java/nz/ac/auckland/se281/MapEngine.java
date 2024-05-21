@@ -46,10 +46,20 @@ public class MapEngine {
       MessageCli.INSERT_COUNTRY.printMessage();
       String input = Utils.capitalizeFirstLetterOfEachWord(Utils.scanner.nextLine());
       Country searchCountry = new Country(input, "null", "null");
-      int indexSearchCountry = countryList.indexOf(searchCountry);
-      Country searchedCountry = countryList.get(indexSearchCountry);
-      MessageCli.COUNTRY_INFO.printMessage(searchedCountry.getName(), searchedCountry.getContinent(), searchedCountry.getTax());
-      validInput = true;
+      int indexSearchCountry;
+
+      try {
+        indexSearchCountry = countryList.indexOf(searchCountry);
+        if (indexSearchCountry == -1) {
+          throw new InvalidCountryInputException();
+        }
+        Country searchedCountry = countryList.get(indexSearchCountry);
+        MessageCli.COUNTRY_INFO.printMessage(searchedCountry.getName(), searchedCountry.getContinent(), searchedCountry.getTax());
+        validInput = true;
+      } catch (Exception e) {
+        MessageCli.INVALID_COUNTRY.printMessage(input);
+      } 
+      
     }
   }
 
