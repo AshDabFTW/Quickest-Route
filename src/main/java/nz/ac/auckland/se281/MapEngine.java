@@ -49,6 +49,13 @@ public class MapEngine {
   public void showRoute() {
     Country startCountry = getValidCountryInput(MessageCli.INSERT_SOURCE.getMessage());
     Country endCountry = getValidCountryInput(MessageCli.INSERT_DESTINATION.getMessage());
+
+    List<Country> bfsRoute = map.bfsRoute(startCountry, endCountry);
+    if(bfsRoute.isEmpty()) {
+      MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
+      return;
+    }
+    // MessageCli.ROUTE_INFO.printMessage(bfsRoute);
   }
 
   public Country getValidCountryInput(String repeatMessage) {
