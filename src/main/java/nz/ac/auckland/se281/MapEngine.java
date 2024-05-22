@@ -51,11 +51,19 @@ public class MapEngine {
     Country endCountry = getValidCountryInput(MessageCli.INSERT_DESTINATION.getMessage());
 
     List<Country> bfsRoute = map.bfsRoute(startCountry, endCountry);
-    if(bfsRoute.isEmpty()) {
+    if (bfsRoute.isEmpty()) {
       MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
       return;
     }
-    // MessageCli.ROUTE_INFO.printMessage(bfsRoute);
+
+    StringBuilder sb = new StringBuilder();
+    sb.append("[");
+    for (Country country : bfsRoute) {
+      sb.append(country.getName()).append(", ");
+    }
+    sb.setLength(sb.length() - 2);
+    sb.append("]");
+    MessageCli.ROUTE_INFO.printMessage(sb.toString());
   }
 
   public Country getValidCountryInput(String repeatMessage) {
