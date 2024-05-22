@@ -40,29 +40,38 @@ public class MapEngine {
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
-    boolean validInput = false;
-
-    while (!validInput) {
-      MessageCli.INSERT_COUNTRY.printMessage();
-      String input = Utils.capitalizeFirstLetterOfEachWord(Utils.scanner.nextLine());
-      Country searchCountry = new Country(input, "null", "null");
-      int indexSearchCountry;
-
-      try {
-        indexSearchCountry = countryList.indexOf(searchCountry);
-        if (indexSearchCountry == -1) {
-          throw new InvalidCountryInputException();
-        }
-        Country searchedCountry = countryList.get(indexSearchCountry);
-        MessageCli.COUNTRY_INFO.printMessage(searchedCountry.getName(), searchedCountry.getContinent(), searchedCountry.getTax());
-        validInput = true;
-      } catch (Exception e) {
-        MessageCli.INVALID_COUNTRY.printMessage(input);
-      } 
-      
-    }
+    Country infoCountry = getValidCountryInput(MessageCli.INSERT_COUNTRY.getMessage());
+    MessageCli.COUNTRY_INFO.printMessage(
+        infoCountry.getName(), infoCountry.getContinent(), infoCountry.getTax());
   }
 
   /** this method is invoked when the user run the command route. */
-  public void showRoute() {}
+  public void showRoute() {
+    Country startCountry = getValidCountryInput(MessageCli.INSERT_SOURCE.getMessage());
+    Country endCountry = getValidCountryInput(MessageCli.INSERT_DESTINATION.getMessage());
+  }
+
+  public Country getValidCountryInput(String repeatMessage) {
+    boolean validInput = false;
+
+    while (!validInput) {
+      System.out.println(repeatMessage);
+      String input = Utils.capitalizeFirstLetterOfEachWord(Utils.scanner.nextLine());
+      Country searchCountry = new Country(input, "null", "null");
+
+      try {
+        int indexSearchCountry = countryList.indexOf(searchCountry);
+        if (indexSearchCountry == -1) {
+          throw new InvalidCountryInputException();
+        } else {
+          Country searchedCountry = countryList.get(indexSearchCountry);
+          return searchedCountry;
+        }
+      } catch (Exception InvalidCountryInputException) {
+        MessageCli.INVALID_COUNTRY.printMessage(input);
+      }
+    }
+    return null;
+  }
+  ;
 }
