@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 public class Graph {
   private Map<Country, List<Country>> adjNodes;
@@ -20,6 +21,15 @@ public class Graph {
   }
 
   public void addEdge(Country node1, Country node2) {
+    Set<Country> keyset = adjNodes.keySet();
+    for (Country country : keyset) {
+      if (country.equals(node1)) {
+        node1 = country;
+      } else if (country.equals(node2)) {
+        node2 = country;
+      }
+    }
+
     adjNodes.get(node1).add(node2);
   }
 

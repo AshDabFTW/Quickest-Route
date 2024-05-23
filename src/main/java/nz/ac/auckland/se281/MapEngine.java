@@ -1,7 +1,9 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /** This class is the main entry point. */
 public class MapEngine {
@@ -56,14 +58,27 @@ public class MapEngine {
       return;
     }
 
-    StringBuilder sb = new StringBuilder();
-    sb.append("[");
+    StringBuilder nameSB = new StringBuilder();
+    nameSB.append("[");
     for (Country country : bfsRoute) {
-      sb.append(country.getName()).append(", ");
+      nameSB.append(country.getName()).append(", ");
     }
-    sb.setLength(sb.length() - 2);
-    sb.append("]");
-    MessageCli.ROUTE_INFO.printMessage(sb.toString());
+    nameSB.setLength(nameSB.length() - 2);
+    nameSB.append("]");
+    MessageCli.ROUTE_INFO.printMessage(nameSB.toString());
+
+    Set<String> continents = new LinkedHashSet<>();
+    for (Country country : bfsRoute) {
+      continents.add(country.getContinent());      
+    }
+    StringBuilder ContinentSB = new StringBuilder();
+    ContinentSB.append("[");
+    for (String continent : continents) {
+      ContinentSB.append(continent).append(", ");
+    }
+    ContinentSB.setLength(ContinentSB.length() - 2);
+    ContinentSB.append("]");
+    MessageCli.CONTINENT_INFO.printMessage(ContinentSB.toString());
   }
 
   public Country getValidCountryInput(String repeatMessage) {
