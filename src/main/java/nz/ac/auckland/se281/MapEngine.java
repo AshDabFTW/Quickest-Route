@@ -65,8 +65,9 @@ public class MapEngine {
     for (Country country : bfsRoute) {
       nameSB.append(country.getName()).append(", ");
       continents.add(country.getContinent());  
-      totalTax =+ Integer.valueOf(country.getTax());
+      totalTax = totalTax + Integer.valueOf(country.getTax());
     }
+    totalTax = totalTax - Integer.valueOf(bfsRoute.get(0).getTax());
     nameSB.setLength(nameSB.length() - 2);
     nameSB.append("]");
     MessageCli.ROUTE_INFO.printMessage(nameSB.toString());
