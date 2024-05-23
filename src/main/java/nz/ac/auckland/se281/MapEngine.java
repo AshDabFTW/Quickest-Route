@@ -129,7 +129,7 @@ public class MapEngine {
           Country searchedCountry = countryList.get(indexSearchCountry);
           return searchedCountry;
         }
-      } catch (Exception InvalidCountryInputException) {
+      } catch (InvalidCountryInputException e) {
         MessageCli.INVALID_COUNTRY.printMessage(input);
       }
     }
