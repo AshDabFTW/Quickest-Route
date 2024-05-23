@@ -59,18 +59,18 @@ public class MapEngine {
     }
 
     StringBuilder nameSB = new StringBuilder();
+    Set<String> continents = new LinkedHashSet<>();
+    int totalTax = 0;
     nameSB.append("[");
     for (Country country : bfsRoute) {
       nameSB.append(country.getName()).append(", ");
+      continents.add(country.getContinent());  
+      totalTax =+ Integer.valueOf(country.getTax());
     }
     nameSB.setLength(nameSB.length() - 2);
     nameSB.append("]");
     MessageCli.ROUTE_INFO.printMessage(nameSB.toString());
 
-    Set<String> continents = new LinkedHashSet<>();
-    for (Country country : bfsRoute) {
-      continents.add(country.getContinent());      
-    }
     StringBuilder ContinentSB = new StringBuilder();
     ContinentSB.append("[");
     for (String continent : continents) {
@@ -79,6 +79,8 @@ public class MapEngine {
     ContinentSB.setLength(ContinentSB.length() - 2);
     ContinentSB.append("]");
     MessageCli.CONTINENT_INFO.printMessage(ContinentSB.toString());
+
+    MessageCli.TAX_INFO.printMessage(String.valueOf(totalTax));
   }
 
   public Country getValidCountryInput(String repeatMessage) {
