@@ -7,8 +7,8 @@ import java.util.Set;
 
 /** This class is the main entry point. */
 public class MapEngine {
-  Graph map = new Graph();
-  List<Country> countryList = new ArrayList<Country>();
+  private Graph map = new Graph();
+  private List<Country> countryList = new ArrayList<Country>();
 
   /** This is the method that will run and loard the map. */
   public MapEngine() {
@@ -73,28 +73,28 @@ public class MapEngine {
     }
 
     // building a string to display the route and counts the tax of each country
-    StringBuilder nameSB = new StringBuilder();
+    StringBuilder nameStringBuilder = new StringBuilder();
     Set<String> continents = new LinkedHashSet<>();
     int totalTax = 0;
-    nameSB.append("[");
+    nameStringBuilder.append("[");
     for (Country country : bfsRoute) {
-      nameSB.append(country.getName()).append(", ");
+      nameStringBuilder.append(country.getName()).append(", ");
       continents.add(country.getContinent());
       totalTax = totalTax + Integer.valueOf(country.getTax());
     }
-    nameSB.setLength(nameSB.length() - 2);
-    nameSB.append("]");
-    MessageCli.ROUTE_INFO.printMessage(nameSB.toString());
+    nameStringBuilder.setLength(nameStringBuilder.length() - 2);
+    nameStringBuilder.append("]");
+    MessageCli.ROUTE_INFO.printMessage(nameStringBuilder.toString());
 
     // building the string for the continents visitied in the route
-    StringBuilder ContinentSB = new StringBuilder();
-    ContinentSB.append("[");
+    StringBuilder continentStringBuilder = new StringBuilder();
+    continentStringBuilder.append("[");
     for (String continent : continents) {
-      ContinentSB.append(continent).append(", ");
+      continentStringBuilder.append(continent).append(", ");
     }
-    ContinentSB.setLength(ContinentSB.length() - 2);
-    ContinentSB.append("]");
-    MessageCli.CONTINENT_INFO.printMessage(ContinentSB.toString());
+    continentStringBuilder.setLength(continentStringBuilder.length() - 2);
+    continentStringBuilder.append("]");
+    MessageCli.CONTINENT_INFO.printMessage(continentStringBuilder.toString());
 
     // removing the tax of the starting country as you do not have to pay that
     totalTax = totalTax - Integer.valueOf(bfsRoute.get(0).getTax());
@@ -108,7 +108,7 @@ public class MapEngine {
    * @return the valid country which was inputed.
    */
   public Country getValidCountryInput(String repeatMessage) {
-     // loop to keep asking for a valid input
+    // loop to keep asking for a valid input
     while (true) {
       // print the starting question
       System.out.println(repeatMessage);
@@ -124,7 +124,7 @@ public class MapEngine {
       try {
         int indexSearchCountry = countryList.indexOf(searchCountry);
         if (indexSearchCountry == -1) {
-          throw new InvalidCountryInputException();
+          throw new InvalidCountryInputException(input);
         } else {
           Country searchedCountry = countryList.get(indexSearchCountry);
           return searchedCountry;

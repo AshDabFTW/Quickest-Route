@@ -34,10 +34,19 @@ public class Country {
   /** Overriden code to say any country with the same name is equal. */
   @Override
   public boolean equals(Object obj) {
+    // checks if same object
     if (this == obj) return true;
+
+    // checks if object is not null
     if (obj == null) return false;
+
+    // checks if same class
     if (getClass() != obj.getClass()) return false;
+
+    // typecast to same class
     Country other = (Country) obj;
+
+    // checks if they have same name
     if (name == null) {
       if (other.name != null) return false;
     } else if (!name.equals(other.name)) return false;
